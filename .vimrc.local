@@ -1,0 +1,42 @@
+let g:airline_powerline_fonts = 1
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'component': {
+      \   'readonly': '%{&readonly?"⭤":""}',
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+let g:go_bin_path = "/Users/jijeshm/.vim-go"
+
+set nolist
+let g:indent_guides_enable_on_vim_startup=0
+hi Normal ctermbg=NONE
+
+nnoremap <C-e>  :NERDTreeToggle<CR>
+inoremap <C-e>  <Esc>:NERDTreeToggle<CR>
+nnoremap <C-b>  :CtrlPBuffer<CR>
+inoremap <C-b>  <Esc>:CtrlPBuffer<CR>
+
+set cursorline                  " Highlight current line
+highlight clear SignColumn 
+
+let g:go_fmt_command = "goimports"
+
+let g:go_bin_path = expand("~/.vim-go")
+
+au FileType go nmap <Leader>do <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+
+au FileType go nmap gd <Plug>(go-def)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+
+au FileType go nmap <Leader>e <Plug>(go-rename)
+
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/bower_components/*,*/node_modules/*
