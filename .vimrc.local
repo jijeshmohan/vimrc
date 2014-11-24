@@ -20,7 +20,8 @@ inoremap <C-b>  <Esc>:CtrlPBuffer<CR>
 
 set cursorline                  " Highlight current line
 highlight clear SignColumn 
-
+" Go Lang Settings
+" ----------------------------------------------------------------
 let g:go_fmt_command = "goimports"
 
 let g:go_bin_path = expand("~/.vim-go")
@@ -33,6 +34,7 @@ au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
+" ----------------------------------------------------------------
 
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'
 nnoremap <Leader>gs :Gstatus<CR>
@@ -40,3 +42,13 @@ nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/bower_components/*,*/node_modules/*
+
+function! s:RubyHashSyntaxToggle() range
+  if join(getline(a:firstline, a:lastline)) =~# '=>'
+    silent! execute a:firstline . ',' . a:lastline . 's/[^{,]*[{,]\?\zs:\([^: ]\+\)\s*=>/\1:/g'
+  else
+    silent! execute a:firstline . ',' . a:lastline . 's/[^{,]*[{,]\?\zs\([^: ]\+\):/:\1 =>/g'
+  endif
+endfunction
+command! -bar -range RubyHashSyntaxToggle <line1>,<line2>call s:RubyHashSyntaxToggle()
+noremap <Leader>rh :RubyHashSyntaxToggle<CR>

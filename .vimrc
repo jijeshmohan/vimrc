@@ -17,6 +17,8 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'fatih/vim-go'
 Bundle 'scrooloose/syntastic'
 Bundle 'mattn/emmet-vim'
+Bundle 'Shougo/neocomplete.vim'
+Bundle 'Raimondi/delimitMate'
 
 " Color Themes
 Bundle 'flazz/vim-colorschemes'
