@@ -4,25 +4,31 @@
 
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'itchyny/lightline.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/nerdtree'
-Bundle 'fatih/vim-go'
-Bundle 'scrooloose/syntastic'
-Bundle 'mattn/emmet-vim'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Raimondi/delimitMate'
+" Load vim-plug
+if empty(glob("~/.vim/autoload/plug.vim"))
+    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
+call plug#begin('~/.vim/plugged')
+Plug 'gmarik/vundle'
+Plug 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
+Plug 'SirVer/ultisnips'
+Plug 'tomtom/tcomment_vim'
+Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+Plug 'fatih/vim-go'
+Plug 'scrooloose/syntastic'
+Plug 'mattn/emmet-vim', {'for': ['html','erb','ejs']}
+Plug 'Shougo/neocomplete.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-rails'
 
 " Color Themes
-Bundle 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
+Plug 'altercation/vim-colors-solarized'
 
+call plug#end()
 set background=dark
 colorscheme solarized
 
