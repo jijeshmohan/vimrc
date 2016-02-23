@@ -6,13 +6,14 @@ set nocompatible
 filetype off
 " Load vim-plug
 if empty(glob("~/.vim/autoload/plug.vim"))
-    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+  execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
 call plug#begin('~/.vim/plugged')
 Plug 'gmarik/vundle'
 Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'tomtom/tcomment_vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
@@ -23,10 +24,24 @@ Plug 'mattn/emmet-vim', {'for': ['html','erb','ejs']}
 Plug 'Shougo/neocomplete.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-rails'
+Plug 'elzr/vim-json', {'for': 'json'}
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'majutsushi/tagbar'
+Plug 'terryma/vim-multiple-cursors'
 
 " Color Themes
 Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
+
+" Utilities 
+Plug 'ryanss/vim-hackernews'
+Plug 'junegunn/limelight.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'Chiel92/vim-autoformat'
+
+"Javascript
+Plug 'mxw/vim-jsx'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 set background=dark
@@ -93,7 +108,7 @@ set fileformats=unix,dos,mac
 " exit insert mode 
 inoremap <C-c> <Esc>
 
-set completeopt=menuone,longest,preview
+set completeopt=menuone,longest
 
 "
 " Plugins config
@@ -102,11 +117,11 @@ set completeopt=menuone,longest,preview
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/* 
 
 " Ultisnip
-" NOTE: <f1> otherwise it overrides <tab> forever
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:did_UltiSnips_vim_after = 1
+let g:UltiSnipsUsePythonVersion = 2
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -145,13 +160,48 @@ let g:airline#extensions#tabline#enabled = 1
 " lazy ':'
 map \ :
 
-let mapleader = ','
-nnoremap <Leader>p :set paste<CR>
-nnoremap <Leader>o :set nopaste<CR>
+let mapleader = "\<Space>"
+nnoremap <Leader>pp :set paste<CR>
+nnoremap <Leader>oo :set nopaste<CR>
+nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>b :CtrlPBuffer<CR>
+nnoremap <Leader>w :winc w<CR>
+nnoremap <Leader>q :q<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
+nmap <Leader>t :TagbarToggle<CR>
+
+" Limelight config 
+nmap <Leader>l <Plug>(Limelight)
+xmap <Leader>l <Plug>(Limelight)
+" Stop quit suggestions window
+map q: :q 
 let g:user_emmet_leader_key='<C-n>'
 
 " this machine config
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
+
+set encoding=utf-8 
+
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+
+
+if has("gui_mac") || has("gui_macvim")
+  set guifont=Menlo:h13
+  set transparency=2
+  set linespace=2
+  set guioptions-=r " Removes right hand scroll bar
+  set go-=L " Removes left hand scroll bar
+endif
+
+au BufWrite * :Autoformat

@@ -24,7 +24,12 @@ highlight clear SignColumn
 " ----------------------------------------------------------------
 let g:go_fmt_command = "goimports"
 
-let g:go_bin_path = expand("~/.vim-go")
+" let g:go_bin_path = expand("~/.vim-go")
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 au FileType go nmap <Leader>do <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
@@ -32,14 +37,20 @@ au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap gd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>i <Plug>(go-info)
 
 au FileType go nmap <Leader>e <Plug>(go-rename)
+
+
+au FileType go au BufWritePost,FileWritePost <buffer> execute 'GoLint' | cwindow
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
 " ----------------------------------------------------------------
 
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit<CR>
-nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gd :Gvdiff<CR>
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/bower_components/*,*/node_modules/*
 
